@@ -1,26 +1,5 @@
 <?php 
 include 'connection.php';
-/**$id = $_GET['updateid'];
-$sql="SELECT * FROM notes";
-$result = mysqli_query( $conn, $sql );
-$row = mysqli_fetch_assoc( $result );
-$id = $row['id'];
-$title = $row['title'];
-$description = $row['description'];
-if( isset($_POST['save']) ){
-	$title = $_POST['title'];
-	$description = $_POST['description'];
-	$sql = "UPDATE  notes SET id='$id', title='$title', description='$description' WHERE id=$id";
-	$result = mysqli_query( $conn, $sql );
-	if($result){
-	
-	header('location:show.php');
-	}
-	else{
-		die( 'Connection failed: ' . htmlspecialchars( $conn->connect_error ) );
-	}
-}**/
-include 'connection.php';
 if (isset($_POST['save'])) {		
 	$sql = $conn->prepare("UPDATE notes SET  title=?, description=? WHERE id=? " ) ;
 	$title = $_POST['title'];

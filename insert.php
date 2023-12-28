@@ -1,20 +1,5 @@
 <?php
 include "connection.php";
-/**if( isset($_POST['save']) ){
-	$title = $_POST['title'];
-	$description = $_POST['description'];
-
-	$sql="INSERT into notes (title, description)
-	VALUES ('$title','$description')";
-	$result = mysqli_query( $conn, $sql );
-	if($result){
-	//	echo "Data inserted Successfully";
-	header('location:show.php');
-	}
-	else{
-		die( 'Connection failed: ' . htmlspecialchars( $conn->connect_error ) );
-	}
-}**/
 
 if ( isset($_POST['save']) ) {	
 	$title = $_POST['title'];

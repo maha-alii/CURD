@@ -6,11 +6,8 @@ if (isset($_POST['save'])) {
 	
 	$description = $_POST['description'];
 	$sql->bind_param("ssi",$title,$description,$_GET["updateid"]);	
-	if($sql->execute()) {
-		$success_message = "Edited Successfully";
-	} else {
-		$error_message = "Problem in Editing Record";
-	}
+	$sql->execute()
+		
 
 }
 $sql = $conn->prepare("SELECT * FROM notes WHERE id=?");

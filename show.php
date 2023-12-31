@@ -15,12 +15,13 @@
 				//data: {'ad': 123, 'asasasa': 'asasas'},
 				success: function (response) {
 					// You will get response from your PHP page (what you echo or print)
+					console.log(response)
 					if( response ) {
 						jQuery('#note-' + id ).remove();
 					}					
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
-					console.log(textStatus, errorThrown);
+					console.log("error in AJAX request: " + errorThrown);
 				}
 			});	
 		}

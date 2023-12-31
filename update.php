@@ -20,10 +20,7 @@ $result = $sql->get_result();
 if ( $result->num_rows > 0 ) {
 	$row = $result->fetch_assoc();
 }
-
 ?>
-
-
 <!DOCTYPE html>
 <html>
 <head>

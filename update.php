@@ -1,22 +1,20 @@
 <?php 
+
 include 'connection.php';
-if (isset($_POST['save'])) {		
+if ( isset($_POST['save']) ) {		
 	$sql = $conn->prepare("UPDATE notes SET  title=?, description=? WHERE id=? " ) ;
 	$title = $_POST['title'];
-	
 	$description = $_POST['description'];
-	$sql->bind_param("ssi",$title,$description,$_GET["updateid"]);	
-	$sql->execute()
-		
-
+	$sql->bind_param( 'ssi' ,$title,$description,$_GET["updateid"] );	
+	$sql->execute() ;
 }
-$sql = $conn->prepare("SELECT * FROM notes WHERE id=?");
-$sql->bind_param("i",$_GET["id"]);			
+$sql = $conn->prepare( 'SELECT * FROM notes WHERE id = ?' );
+$sql->bind_param( "i",$_GET["id"] );
 $sql->execute();
 $result = $sql->get_result();
-if ($result->num_rows > 0) {		
+if ($result->num_rows > 0) {
 	$row = $result->fetch_assoc();
-	header('location:show.php');
+	header( 'location:show.php' ) ;
 }
 
 ?>

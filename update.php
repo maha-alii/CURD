@@ -1,22 +1,24 @@
-<?php 
-include 'connection.php';
-if (isset($_POST['save'])) {		
-	$sql = $conn->prepare("UPDATE notes SET  title=?, description=? WHERE id=? " ) ;
-	$title = $_POST['title'];
-	
-	$description = $_POST['description'];
-	$sql->bind_param("ssi",$title,$description,$_GET["updateid"]);	
-	$sql->execute()
-		
+<?php
+require 'connection.php';
 
+// Update note on user sumbit
+if ( isset( $_POST['save'] ) ) {
+	$sql   = $conn->prepare( 'UPDATE notes SET  title=?, description=? WHERE id=? ' );
+	$title = $_POST['title'];
+	$description = $_POST['description'];
+	
+	$sql->bind_param( 'ssi', $title, $description, $_GET['updateid'] );
+	$sql->execute();
+	header( 'location: show.php' );
+	exit();
 }
-$sql = $conn->prepare("SELECT * FROM notes WHERE id=?");
-$sql->bind_param("i",$_GET["id"]);			
+
+$sql = $conn->prepare( 'SELECT * FROM notes WHERE id=?' );
+$sql->bind_param( 'i', $_GET['updateid'] );
 $sql->execute();
 $result = $sql->get_result();
-if ($result->num_rows > 0) {		
+if ( $result->num_rows > 0 ) {
 	$row = $result->fetch_assoc();
-	header('location:show.php');
 }
 
 ?>
@@ -71,17 +73,6 @@ if ($result->num_rows > 0) {
 		table, th, td {
   border:1px solid black;
 }
-
-.btn {
-	background-color: #e7e7e7; color: black;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-}
 		
 		/* Style input fields and buttons */
 		/* Add more styles as needed */
@@ -90,23 +81,21 @@ if ($result->num_rows > 0) {
 <body>
 	<div class="container">
 		<h1>My Coding Arena</h1>
-		<p>The code shows here:</p>
-		<div>
-			 Add your code below this line 
 
+		<div>
 			<h2>Notes</h2>
 			<form action="" method="post">
 				<div class="form-group">
 					<label for="title">Title:</label>
-					<input   name="title" id="title"  >
+					<input   name="title" id="title" value="<?php echo htmlspecialchars( $row['title']) ?>">
 				</div>
-                <div class="form-group">
+				<div class="form-group">
 					<label for="description">Description:</label>
-					<input   name="description" id="description"  >
-                 </div>
-                    <button type="save" class="btn btn-primary" name="save">Update</button>
+					<input name="description" id="description" value="<?php echo htmlspecialchars( $row['description']) ?>">
+				 </div>
+					<button type="save" class="btn btn-primary" name="save">Update</button>
 				 </form>	
 
 	<div>
 </body>
-</html>			
+</html>

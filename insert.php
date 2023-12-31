@@ -65,17 +65,6 @@ $description = $_POST['description'];
 		table, th, td {
   border:1px solid black;
 }
-
-.btn {
-	background-color: #e7e7e7; color: black;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-}
 		
 		/* Style input fields and buttons */
 		/* Add more styles as needed */

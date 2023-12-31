@@ -1,6 +1,5 @@
-			
 <?php
- //code for read data from Database
+//code for read data from Database
 /**
  * Connects with MySQL.
  */

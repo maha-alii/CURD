@@ -45,18 +45,8 @@
 			display: block;
 		}
 		table, th, td {
-  border:1px solid black;
-}
-.btn {
-	background-color: #e7e7e7; color: black;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-}
+		border:1px solid black;
+		}
 		
 		/* Style input fields and buttons */
 		/* Add more styles as needed */
@@ -65,7 +55,7 @@
 <body>
 <div class='container'>
 	
-       <h1>NOTES</h1>
+	   <h1>NOTES</h1>
  <table class="table">
 	<thead>
 		<tr>
@@ -77,23 +67,29 @@
 	</thead>
 	<tbody>
 		<?php
-		include 'connection.php';
-		$sql = "SELECT * FROM notes";
-        $result = $conn->query($sql);
-		if ($result->num_rows > 0) {		
-			while($row = $result->fetch_assoc()) {
-              $id = $row['id'];
-			  $title = $row['title'];
-			  $description = $row['description'];
-			  echo'
+		require 'connection.php';
+		$sql    = 'SELECT * FROM notes';
+		$result = $conn->query( $sql );
+		if ( $result->num_rows > 0 ) {
+			while ( $row = $result->fetch_assoc() ) {
+				$id          = $row['id'];
+				$title       = $row['title'];
+				$description = $row['description'];
+				echo '
 			  <tr>
-			  <th>'.$id.'</th>
-			  <td>'.$title.'</td>
-			  <td>'.$description.'</td>
+			  <th>' . $id . '</th>
+			  <td>' . $title . '</td>
+			  <td>' . $description . '</td>
 			  <td>
-			  <button class="btn btn-primary my-5"><a href="insert.php">Insert</a></button>
-			  <button class="btn btn-primary"><a href="update.php?updateid='. $id .'">Update</a></button>
-			  <button class="btn btn-danger"><a href="delete.php?deleteid='. $id .'">Delete</a></button>
+			  <a href="insert.php">
+			  	<button class="btn btn-lg btn-primary my-5">Insert</button>
+			  </a>
+			  <a href="update.php?updateid=' . $id . '">
+			  	<button class="btn btn-lg btn-primary">Update</button>
+			  </a>
+			  <a href="delete.php?deleteid=' . $id . '">
+			  	<button class="btn btn-lg btn-danger">Delete</button>
+			  </a>
 			  </td>
 			  </tr>';
 			}

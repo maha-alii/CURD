@@ -1,4 +1,4 @@
-
+<?php
 
     include 'connection.php';
 	$sql = $conn->prepare("DELETE  FROM notes WHERE id=?");  

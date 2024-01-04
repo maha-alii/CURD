@@ -15,15 +15,15 @@ if ( $sql ) {
 	$sql->bind_param( 'i', $_GET['delete_id'] );
 
 	// Execute the statement
-	if ($sql->execute()) {
-        // Check the number of affected rows
-        if ($sql->affected_rows > 0) {
-            echo 1; // Success indicator
-            die();
-        } else {
-            echo "No rows affected. The record may not exist.";
-        }
-    } else {
+	if ( $sql->execute() ) {
+		// Check the number of affected rows
+		if ( $sql->affected_rows > 0 ) {
+			echo 1; // Success indicator
+			die();
+		} else {
+			echo 'No rows affected. The record may not exist.';
+		}
+	} else {
 		echo 'Error executing statement: ' . $sql->error;
 	}
 } else {

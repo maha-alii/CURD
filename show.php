@@ -47,7 +47,7 @@
 		.container {
 			background-color: #fff;
 			padding: 20px;
-			border-radius: 5px;
+			border-radius: 2px;
 			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 			max-width: 1000px;
 		}
@@ -62,7 +62,7 @@
 			padding: 5px;
 			color: #4f4f4f;
 			border: 1px solid #ddd;
-			border-radius: 3px;
+			border-radius: 5px;
 			display: block;
 		}
 		table, th, td {
@@ -76,8 +76,16 @@
 <body>
 <div class='container'>
 	
-	   <h1>NOTES</h1>
- <table class="table">
+		<h1  >NOTES</h1>
+	
+		<a  onclick="insert_note(' . htmlspecialchars( $id ) . ')">
+					<button class="btn btn-lg btn-primary my-5  float-right-top">Insert</button>
+				</a> 
+				<a  href='show.php'>
+					<button class="btn btn-lg btn-primary my-5  float-right-top ">List of notes</button>
+				</a> 
+			
+<table class="table">
 	<thead>
 		<tr>
 			<th>S.no</th>
@@ -102,10 +110,8 @@
 				<td>' . $title . '</td>
 				<td>' . $description . '</td>
 				<td>
-				<a href="insert.php">
-					<button class="btn btn-lg btn-primary my-5">Insert</button>
-				</a>
-				<a href="update.php?updateid=' . $id . '">
+				
+				<a onclick="update_note(' . htmlspecialchars( $id ) . ')">
 					<button class="btn btn-lg btn-primary">Update</button>
 				</a>
 				<a onclick="delete_note(' . htmlspecialchars( $id ) . ')">
@@ -118,5 +124,7 @@
 		?>
 	</tbody> 
 
- </table>
-</div>
+</table>
+</div>	
+</body>
+</html>

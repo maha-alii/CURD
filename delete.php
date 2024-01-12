@@ -7,7 +7,7 @@ if ( ! isset( $_GET['delete_id'] ) || ! is_numeric( $_GET['delete_id'] ) ) {
 require 'connection.php';
 
 // Prepare the delete statement with a placeholder for the parameter
-$sql = $conn->prepare( 'DELETE FROM nnotes WHERE id=?' );
+$sql = $conn->prepare( 'DELETE FROM notes WHERE id=?' );
 
 // Check if the statement could be prepared successfully
 if ( $sql ) {

@@ -8,46 +8,76 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<script>
-		function insert_note() {
+			
+			function update_note(id) {
+			var title=jQuery('#note-' + id).find('.note-title').text();
+			var description=jQuery('#note-' + id).find('.note-description ').text();
+			jQuery('#list-notes-wrap').hide();
+			jQuery('#add-note-wrap').show();
+			jQuery('#note-' + id).find('.note-title').val(title);
+			jQuery('#note-' + id).find('.note-description ').val(description);
+
+		}
+		function insert_note(id) {
+		   jQuery('#note_id').val();
+		   var note_id = jQuery('#note_id').val();
+			console.log(note_id)
 			var title = jQuery('#title').val();
 			var description = jQuery('#description').val();
-				
-			/* When Inserting a Note Via AJAX */
-			jQuery.ajax({
-				url: "insert.php",
+			if(id){
+				jQuery.ajax({
+				url: "update.php",
 				type: "post",
-				data: { 'title': title , 'description': description },
-				success: function (response) {					
-					// You will get response from your PHP page (what you echo or print)
-					if( !isNaN(response)) {
-						var note_id = response;
-						jQuery('#list-notes-body' ).append(
-							'<tr id=note-' + note_id + '>\
-								<th>' + note_id + '</th>\
-								<td class="note-title">' + title +'</td>\
-								<td class="note-description">' + description + '</td>\
-								<td> \
-									<a onclick="update_note('+note_id+')">\
-										<button class="btn btn-lg btn-primary">Update</button>\
-									</a>\
-									<a onclick="delete_note('+note_id+')">\
-										<button class="btn btn-lg btn-danger">Delete</button>\
-									</a>\
-								</td>\
-							</tr>'
-						);
-						jQuery('#list-notes-wrap').show();
-						jQuery('#add-note-wrap').hide();
-					} else {
-						// show error if not deleted
-						console.log(response)
-					}
-				},
-				error: function(jqXHR, textStatus, errorThrown) {
-					console.log("error in AJAX request: " + errorThrown);
-				}
-			});	
+				data: { 'id':note_id,'title': title , 'description': description },
+				success: function (response) {	
+					jQuery('#list-notes-wrap').show();
+					jQuery('#add-note-wrap').hide();
+					jQuery('#note_id').val();
+					jQuery('.note-title ').val(title);
+					jQuery('.note-description ').val(description);
+			}
+		});
 		}
+		
+
+else{
+	/* When Inserting a Note Via AJAX */
+	jQuery.ajax({
+		url: "insert.php",
+		type: "post",
+		data: { 'title': title , 'description': description },
+		success: function (response) {					
+			// You will get response from your PHP page (what you echo or print)
+			if( !isNaN(response)) {
+				var note_id = response;
+				jQuery('#list-notes-body' ).append(
+					'<tr id=note-' + note_id + '>\
+						<th>' + note_id + '</th>\
+						<td class="note-title">' + title +'</td>\
+						<td class="note-description">' + description + '</td>\
+						<td> \
+							<a onclick="update_note('+note_id+')">\
+								<button class="btn btn-lg btn-primary">Update</button>\
+							</a>\
+							<a onclick="delete_note('+note_id+')">\
+								<button class="btn btn-lg btn-danger">Delete</button>\
+							</a>\
+						</td>\
+					</tr>'
+				);
+				jQuery('#list-notes-wrap').show();
+				jQuery('#add-note-wrap').hide();
+			} else {
+				// show error if not deleted
+				console.log(response)
+			}
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			console.log("error in AJAX request: " + errorThrown);
+		}
+	});	
+}
+}
 		
 		function show_note() {
 			jQuery('#list-notes-wrap').hide();
@@ -74,6 +104,8 @@
 				}
 			});	
 		}
+
+
 	</script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 	<style>
@@ -154,7 +186,7 @@
 					$description = $row['description'];
 					?>
 					<tr id=note-<?php echo htmlspecialchars( $id ); ?>>
-						<th><?php echo htmlspecialchars( $id ); ?></th>
+						<th class="id"><?php echo htmlspecialchars( $id ); ?></th>
 						<td class="note-title"><?php echo htmlspecialchars( $title ); ?></td>
 						<td class="note-description"><?php echo htmlspecialchars( $description ); ?></td>
 						<td>
@@ -179,13 +211,13 @@
 	<form class="form" method="post">
 		<div class="form-group">
 			<label for="title">Title:</label>
-			<input class="form-control" name="title" id="title" >
+			<input class="form-control " name="title" id="title" >
 		</div>
 		<div class="form-group">
 			<label for="description">Description:</label>
-			<input class="form-control" name="description" id="description">
+			<input class="form-control " name="description" id="description">
 		</div>
-		<input class="form-control" type="hidden" name="note_id" id="note_id">
+		<input class="form-control" type="hidden" name="note_id" id="note_id" value="">
 		<button onclick="insert_note()" type="button" class="btn btn-primary" name="save">Save</button>
 	</form>
 </div>

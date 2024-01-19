@@ -13,10 +13,25 @@ if ( isset( $_POST['save'] ) ) {
 	$title       = $_POST['title'];
 	$description = $_POST['description'];
 	// Bind the parameter to the statement
-	$sql->bind_param( 'ssi', $title, $description, $_GET['update_id'] );
-	// Execute the statement
-	$sql->execute();
-	header( 'location: show.php' );
-	exit();
-}
+	
+		// Execute the statement
+		if ( $sql->execute() ) {
+			$sql->bind_param( 'ssi', $title, $description, $_GET['update_id'] );
+	
+			// Check the number of affected rows
+			if ( $sql->affected_rows > 0 ) {
+				echo htmlspecialchars( $sql->insert_id ); // Success indicator
+			} else {
+				echo 'No rows affected. The record may not exist.';
+			}
+		} else {
+			echo 'Error executing statement: ' . htmlspecialchars( $sql->error );
+		}
+	} else {
+		echo 'Error preparing statement: ' . htmlspecialchars( $conn->error );
+	}
+
+die();
+
+
 ?>

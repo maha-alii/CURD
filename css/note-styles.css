@@ -1,3 +1,7 @@
 #add-note-wrap {
     display: none; 
 }
+
+#title-warning{
+    display: none;
+}

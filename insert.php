@@ -6,6 +6,12 @@ require 'connection.php';
 if ( isset( $_POST['title'] ) && isset( $_POST['description'] ) ) {
 	$title       = $_POST['title'];
 	$description = $_POST['description'];
+
+	// Check if title is empty 
+	if ( ! isset( $_POST['title'] ) ) {
+		return;
+	}
+
 	// Prepare the insert statement with a placeholder for the parameter
 	$sql = $conn->prepare( 'INSERT INTO notes (title,description) VALUES (?, ? )' );
 

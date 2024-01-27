@@ -13,10 +13,15 @@ if ( isset( $_POST['title'] ) ) {
 	$note_id     = $_POST['id'];
 	$title       = $_POST['title'];
 	$description = $_POST['description'];
-	
+
+	// Check if title is empty
+	if ( ! $title ) {
+		return;
+	}
+
 	// Bind the parameter to the statement
 	$sql->bind_param( 'ssi', $title, $description, $note_id );
-	
+
 		// Execute the statement
 	if ( $sql->execute() ) {
 		// Check the number of affected rows
